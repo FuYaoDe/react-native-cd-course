@@ -6,13 +6,10 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
+  FlatList,
   StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
-  Alert,
-  ScrollView
+  RefreshControl,
 } from 'react-native';
 
 
@@ -21,18 +18,24 @@ import ButtonSample from './ButtonSample';
 import Image from './Image';
 import ListItem from './ListItem';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
 export default class App extends Component<{}> {
   
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRefreshing: false,
+    };
+  }
+  
+  renderList = ({ item, index }) => {
+    return (
+      <ListItem {...item} />
+    );
+  }
+    
   render() {
     const data=[{
-      title: '標題A',
+      title: '標題AA',
       desc: '內容A',
       image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
     }, {
@@ -63,19 +66,53 @@ export default class App extends Component<{}> {
       title: '標題C',
       desc: '內容A',
       image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+    }, {
+      title: '標題D',
+      desc: '內容A',
+      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+    }, {
+      title: '標題E',
+      desc: '內容A',
+      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+    }, {
+      title: '標題F',
+      desc: '內容A',
+      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
     }]
     
-    const renderList = () => {
-      return data.map((data, i) => {
-        return <ListItem {...data} key={i}/>
-      })
-    }
     return (
-      <ScrollView style={styles.container}>
-         {
-           renderList()
-         }
-      </ScrollView>
+      <FlatList
+        style={{ flex: 1}}
+        data={data}
+        renderItem={this.renderList}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => {
+          alert('123123')
+        }}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.isRefreshing}
+            onRefresh={() => { 
+              this.setState({ isRefreshing: true  })
+              setTimeout(() => {
+                this.setState({ isRefreshing: false  })
+              }, 1000);
+            }}
+          />
+        }
+        ListHeaderComponent={
+          <View style={{ height: 100, backgroundColor: 'red'  }}>
+          
+          </View>
+        }
+        ItemSeparatorComponent={
+          ({highlighted}) => <View style={{ height: 3, backgroundColor: 'pink'  }} />
+        }
+        ListFooterComponent={
+          <View style={{ height: 100, backgroundColor: 'blue' }}>
+          </View>
+        }
+      />
     );
   }
 }
