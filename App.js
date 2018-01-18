@@ -6,10 +6,11 @@
 
 import React, { Component } from 'react';
 import {
-  FlatList,
+  SectionList,
   StyleSheet,
   View,
   RefreshControl,
+  Text
 } from 'react-native';
 
 
@@ -35,55 +36,40 @@ export default class App extends Component<{}> {
     
   render() {
     const data=[{
-      title: '標題AA',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+      title: 'A',
+      data: [{
+        title: '標題AA',
+        desc: '內容A',
+        image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+      }, {
+        title: '標題BB',
+        desc: '內容A',
+        image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+      }],
     }, {
-      title: '標題B',
-      desc: '內容B',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題B',
-      desc: '內容B',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題C',
-      desc: '內容C',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    },{
-      title: '標題A',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題B',
-      desc: '內容B',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題B',
-      desc: '內容B',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題C',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題D',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題E',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: '標題F',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+      title: 'B',
+      data: [{
+        title: 'B標題AA',
+        desc: '內容A',
+        image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+      }, {
+        title: 'B標題BB',
+        desc: '內容A',
+        image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+      }],
     }]
     
     return (
-      <FlatList
+      <SectionList
         style={{ flex: 1}}
-        data={data}
+        sections={data}
+        renderSectionHeader={({ section }) => {
+          return (
+            <View style={{ height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: 'green'  }}>
+              <Text>{section.title}</Text>
+            </View>
+          )
+        }}
         renderItem={this.renderList}
         onEndReachedThreshold={0.5}
         onEndReached={() => {
