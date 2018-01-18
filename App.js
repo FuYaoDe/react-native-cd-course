@@ -10,6 +10,7 @@ import {
   StyleSheet,
   View,
   RefreshControl,
+  TextInput,
 } from 'react-native';
 
 
@@ -24,13 +25,22 @@ export default class App extends Component<{}> {
     super(props);
     this.state = {
       isRefreshing: false,
+      text: '',
     };
   }
   
   renderList = ({ item, index }) => {
     return (
-      <ListItem {...item} />
+      <ListItem {...item} key={index} />
     );
+  }
+  
+  filter = (list) => {
+    if (this.state.text) {
+       return list.filter((data) => data.title.indexOf(this.state.text) > 0);
+    } else {
+      return list
+    }
   }
     
   render() {
@@ -78,16 +88,16 @@ export default class App extends Component<{}> {
       title: '標題F',
       desc: '內容A',
       image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }]
+    }];
     
     return (
       <FlatList
         style={{ flex: 1}}
-        data={data}
+        data={this.filter(data)}
         renderItem={this.renderList}
         onEndReachedThreshold={0.5}
         onEndReached={() => {
-          alert('123123')
+          // alert('123123');
         }}
         refreshControl={
           <RefreshControl
@@ -101,8 +111,13 @@ export default class App extends Component<{}> {
           />
         }
         ListHeaderComponent={
-          <View style={{ height: 100, backgroundColor: 'red'  }}>
-          
+          <View style={{ height: 50, paddingLeft: 20, paddingRight: 20 }}>
+            <TextInput 
+              style={{ height: 50  }}
+              onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
+              underlineColorAndroid={'transparent'}
+              value={this.state.text}
+            />
           </View>
         }
         ItemSeparatorComponent={
