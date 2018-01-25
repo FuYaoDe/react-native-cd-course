@@ -15,7 +15,7 @@ import {
   ScrollView,
   FlatList,
   RefreshControl,
-  TextInput
+  TextInput,
 } from 'react-native';
 
 
@@ -39,35 +39,41 @@ export default class App extends Component<{}> {
     this.state = {
       isRefreshing: false,
       text: '',
+      data: [],
+      page: 1,
     };
   }
   
+  componentWillMount() {
+    
+  }
+  
+  async componentDidMount() {
+    // await this.getData();
+  }
+  
+  getData = async () => {
+    const response = await fetch(`https://1c216d9e.ngrok.io/users?_page=${this.state.page}&_limit=30`);
+    let responseJson = await response.json();
+    console.log(responseJson);
+    this.setState({
+      data: [...this.state.data, ...responseJson],
+      page: this.state.page + 1,
+      isRefreshing: false,
+    });
+  }
+  
+  formatData = (list) => {
+   return list.map((data) => {
+     return {
+       title: data.name,
+       image: data.avatar,
+       desc: data.job_title,
+     }
+   }); 
+  }
+  
   render() {
-    const data=[{
-      title: 'A標題1',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'BBBBB',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'CCCCCC',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題1',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題2',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題3',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }]
     
     const renderItem = ({ item, index }) => {
       return (
@@ -90,7 +96,7 @@ export default class App extends Component<{}> {
     
     return (
       <FlatList
-         data={filter(data)}
+         data={filter(this.formatData(this.state.data))}
          renderItem={renderItem}
          renderSectionHeader={
           ({ section }) => {
@@ -102,7 +108,9 @@ export default class App extends Component<{}> {
           }
          }
          onEndReachedThreshold={0.5}
-         //onEndReached={() => { Alert.alert('阿', '到底摟') }}
+         onEndReached={() => {
+           this.getData();
+         }}
          ListHeaderComponent={
            <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
              <TextInput
@@ -117,30 +125,31 @@ export default class App extends Component<{}> {
              />
            </View>
          }
-         ListFooterComponent={
-           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
-             <TextInput
-               onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
-               style={{  height: 40 }}
-               underlineColorAndroid={'transparent'}
-               value={this.state.text}
-             />
-           </View>
-         }
+        // ListFooterComponent={
+        //   <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
+        //     <TextInput
+        //       onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
+        //       style={{  height: 40 }}
+        //       underlineColorAndroid={'transparent'}
+        //       value={this.state.text}
+        //     />
+        //   </View>
+        // }
          ItemSeparatorComponent={
            ({highlighted}) => <View style={{ height: 3, backgroundColor: 'pink'  }} />
          }
          refreshControl={
            <RefreshControl
              refreshing={this.state.isRefreshing}
-             onRefresh={() => {
-               this.setState({ isRefreshing: true });
-               setTimeout(
-                 () => {
-                   this.setState({ isRefreshing: false });
-                 }, 
-                 1000
-               );
+             onRefresh={async() => {
+             
+              this.setState({
+                isRefreshing: true,
+                data: [],
+                page: 1,
+              }, async () => {
+                await this.getData();
+              });
              }}
            />
          }
