@@ -3,7 +3,8 @@ import {
   View,
   StyleSheet,
   Text,
-  Image
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 
 export default class ListItem extends Component {
@@ -12,6 +13,7 @@ export default class ListItem extends Component {
     title: '123123',
     desc: '內容',
     image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
+    onPress: () => {},
   }
   constructor(props) {
     super(props);
@@ -19,7 +21,7 @@ export default class ListItem extends Component {
 
   render() {
     return (
-      <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#eee' }}>
+      <TouchableOpacity style={{ flexDirection: 'row', padding: 10, backgroundColor: '#eee' }} onPress={this.props.onPress}>
        
        
        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -49,7 +51,7 @@ export default class ListItem extends Component {
             {this.props.desc}
           </Text>
        </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
