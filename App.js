@@ -23,6 +23,8 @@ import Button from './Button';
 import ButtonSample from './ButtonSample';
 import Image from './Image';
 import ListItem from './ListItem';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -102,7 +104,7 @@ export default class App extends Component<{}> {
           ({ section }) => {
             return (
               <View style={{ height: 40, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
-                 <Text style={{ color: '#fff' }}>{section.title}</Text>
+                <Text style={{ color: '#fff' }}>{section.title}</Text>
               </View>
             );
           }
@@ -112,7 +114,8 @@ export default class App extends Component<{}> {
            this.getData();
          }}
          ListHeaderComponent={
-           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
+           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20, flexDirection: 'row' }}>
+             <Icon name={'search'} size={20} color={'#000'} />
              <TextInput
                onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
                style={{  height: 40 }}
