@@ -9,7 +9,7 @@ import {
 export default class ListItem extends Component {
 
   static defaultProps = {
-    title: '標題',
+    title: '123123',
     desc: '內容',
     image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
   }
