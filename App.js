@@ -15,7 +15,8 @@ import {
   ScrollView,
   FlatList,
   RefreshControl,
-  TextInput
+  TextInput,
+  AsyncStorage,
 } from 'react-native';
 
 
@@ -23,13 +24,7 @@ import Button from './Button';
 import ButtonSample from './ButtonSample';
 import Image from './Image';
 import ListItem from './ListItem';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import List from './List';
 
 export default class App extends Component<{}> {
   
@@ -38,113 +33,63 @@ export default class App extends Component<{}> {
     super(props);
     this.state = {
       isRefreshing: false,
-      text: '',
+      name: '',
     };
   }
   
+  componentWillMount() {
+    console.log("componentWillMount");
+  }
+  
+  async componentDidMount() {
+    console.log("componentDidMount");
+    await this.getName();
+    await this.getData();
+  }
+  
+  componentWillUpdate() {
+    console.log("componentWillUpdate");
+    
+  }
+  
+  getData = async() => {
+    let response = await fetch(`https://ffccec3f.ngrok.io/users/1`);
+    console.log(response);
+    const data = await response.json();
+    console.log("json", data);
+    this.setState({
+      name: data.name,
+    });
+    await this.setItem(data.name);
+  }
+  
+  setItem = async(str) => {
+    try {
+      console.log(str);
+      await AsyncStorage.setItem('name', str);
+    }catch(e) {
+      console.log(e);
+    }
+  }
+  
+  getName = async() => {
+    try {
+      const name = await AsyncStorage.getItem('name');
+      console.log(name);
+      if (name !== null) {
+        this.setState({ name }); 
+      }
+    }catch(e) {
+      console.log(e);
+    }
+  }
+  
   render() {
-    const data=[{
-      title: 'A標題1',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'BBBBB',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'CCCCCC',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題1',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題2',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題3',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }]
-    
-    const renderItem = ({ item, index }) => {
-      return (
-        <ListItem
-          title={item.title}
-          desc={item.desc}
-          image={item.image}
-        />
-      );
-      // return <ListItem {...item} /> 
-    }
-    
-    const filter = (list) => {
-     if (this.state.text.length > 0) {
-       return list.filter((data) => data.title.indexOf(this.state.text) > -1);
-     } else {
-       return list
-     }
-    }
-    
+    console.log("render");
     return (
-      <FlatList
-         data={filter(data)}
-         renderItem={renderItem}
-         renderSectionHeader={
-          ({ section }) => {
-            return (
-              <View style={{ height: 40, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
-                 <Text style={{ color: '#fff' }}>{section.title}</Text>
-              </View>
-            );
-          }
-         }
-         onEndReachedThreshold={0.5}
-         //onEndReached={() => { Alert.alert('阿', '到底摟') }}
-         ListHeaderComponent={
-           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
-             <TextInput
-               onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
-               style={{  height: 40 }}
-               underlineColorAndroid={'transparent'}
-               value={this.state.text}
-              keyboardType={'numeric'}
-              returnKeyType={'search'}
-              secureTextEntry
-              defaultValue={1231212}
-             />
-           </View>
-         }
-         ListFooterComponent={
-           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
-             <TextInput
-               onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
-               style={{  height: 40 }}
-               underlineColorAndroid={'transparent'}
-               value={this.state.text}
-             />
-           </View>
-         }
-         ItemSeparatorComponent={
-           ({highlighted}) => <View style={{ height: 3, backgroundColor: 'pink'  }} />
-         }
-         refreshControl={
-           <RefreshControl
-             refreshing={this.state.isRefreshing}
-             onRefresh={() => {
-               this.setState({ isRefreshing: true });
-               setTimeout(
-                 () => {
-                   this.setState({ isRefreshing: false });
-                 }, 
-                 1000
-               );
-             }}
-           />
-         }
-      />
+      <View style={{ flex: 1 }}>
+        <List />
+      </View>
     );
   }
 }
