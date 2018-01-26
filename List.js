@@ -43,47 +43,28 @@ export default class List extends Component<{}> {
     };
   }
   
-  componentDidMount() {
+  async componentDidMount() {
     await this.getData();
   }
   
   getData = async() => {
-    
+    let response = await fetch(`https://ffccec3f.ngrok.io/users?_page=1&_limit=10`);
+    console.log(response);
+    const data = await response.json();
+    console.log("json", data);
+    this.setState({
+      data,
+    });
   }
   
   render() {
-    const data=[{
-      title: 'A標題1',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'BBBBB',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'CCCCCC',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題1',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題2',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }, {
-      title: 'B標題3',
-      desc: '內容A',
-      image: 'https://robohash.org/eaetin.png?size=150x150&set=set1',
-    }]
     
     const renderItem = ({ item, index }) => {
       return (
         <ListItem
-          title={item.title}
-          desc={item.desc}
-          image={item.image}
+          title={item.name}
+          desc={item.job_title}
+          image={item.avatar}
         />
       );
       // return <ListItem {...item} /> 
@@ -99,7 +80,7 @@ export default class List extends Component<{}> {
     
     return (
       <FlatList
-         data={filter(data)}
+         data={filter(this.state.data)}
          renderItem={renderItem}
          renderSectionHeader={
           ({ section }) => {
@@ -126,16 +107,16 @@ export default class List extends Component<{}> {
              />
            </View>
          }
-         ListFooterComponent={
-           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
-             <TextInput
-               onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
-               style={{  height: 40 }}
-               underlineColorAndroid={'transparent'}
-               value={this.state.text}
-             />
-           </View>
-         }
+        // ListFooterComponent={
+        //   <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
+        //     <TextInput
+        //       onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
+        //       style={{  height: 40 }}
+        //       underlineColorAndroid={'transparent'}
+        //       value={this.state.text}
+        //     />
+        //   </View>
+        // }
          ItemSeparatorComponent={
            ({highlighted}) => <View style={{ height: 3, backgroundColor: 'pink'  }} />
          }
