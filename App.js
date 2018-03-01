@@ -26,6 +26,9 @@ import Image from './Image';
 import ListItem from './ListItem';
 import List from './List';
 import { Router, Stack, Scene } from "react-native-router-flux";
+import CustomNavBar from './CustomNavBar';
+// import CustomNavBar from './AnsCustomNavBar';
+
 
 export default class App extends Component<{}> {
   
@@ -54,9 +57,9 @@ export default class App extends Component<{}> {
   render() {
     console.log("render");
     return (
-      <Router uriPrefix={'test'}>
+      <Router uriPrefix={'test'} navBar={CustomNavBar}>
         <Stack key="root">
-          <Scene drawer key="button" path={"/button/:string"} component={ButtonSample} title="按鈕"/>
+          <Scene key="button" path={"/button/:string"} component={ButtonSample} title="按鈕"/>
           <Scene key="list" path={"/list/:search"} component={List} title="List"/>
         </Stack>
       </Router>
