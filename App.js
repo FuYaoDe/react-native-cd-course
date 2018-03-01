@@ -54,10 +54,10 @@ export default class App extends Component<{}> {
   render() {
     console.log("render");
     return (
-      <Router>
+      <Router uriPrefix={'test'}>
         <Stack key="root">
-          <Scene key="button" component={ButtonSample} title="按鈕"/>
-          <Scene key="list" component={List} title="List"/>
+          <Scene drawer key="button" path={"/button/:string"} component={ButtonSample} title="按鈕"/>
+          <Scene key="list" path={"/list/:search"} component={List} title="List"/>
         </Stack>
       </Router>
     );

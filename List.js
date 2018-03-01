@@ -38,13 +38,14 @@ export default class List extends Component<{}> {
     super(props);
     this.state = {
       isRefreshing: false,
-      text: '',
+      text: props.search,
       data: [],
       page: 1,
     };
   }
   
   async componentDidMount() {
+    console.log(this.props)
     await this.getData();
   }
   

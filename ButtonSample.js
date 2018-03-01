@@ -37,12 +37,23 @@ export default class ButtonSample extends Component {
     return (
       <View style={styles.container}>
       
-        <Button
-          style={{ marginBottom: 20 }}
-          onPress={this.onPress}
-          title="HelloJS"
-          color="#841584"
-        />
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.button({ title: '自訂 Title'  });
+        }}>
+          <Text style={styles.buttonText}>切換到新的 Button 頁面</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.refresh({ title: '標題' });
+        }}>
+          <Text style={styles.buttonText}>刷新當前 props</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.refresh({ title: '更新' });
+        }}>
+          <Text style={styles.buttonText}>Actions</Text>
+        </TouchableOpacity>
         
         <TouchableOpacity {...buttonProps} onPress={() => {
           Actions.pop();
@@ -50,23 +61,6 @@ export default class ButtonSample extends Component {
           <Text style={styles.buttonText}>返回</Text>
         </TouchableOpacity>
         
-        <TouchableHighlight {...buttonProps}>
-          <Text style={styles.buttonText}>TouchableHighlight</Text>
-        </TouchableHighlight>
-        
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.SelectableBackground()}
-        >
-          <View style={[styles.button, { backgroundColor: 'red', width: 150  }]}>
-            <Text style={styles.buttonText}>Button</Text>
-          </View>
-        </TouchableNativeFeedback>
-        
-        <TouchableWithoutFeedback>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>TouchableWithoutFeedback</Text>
-          </View>
-        </TouchableWithoutFeedback>
       </View>
     );
   }
