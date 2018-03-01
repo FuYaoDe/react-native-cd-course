@@ -25,6 +25,7 @@ import ButtonSample from './ButtonSample';
 import Image from './Image';
 import ListItem from './ListItem';
 import List from './List';
+import { Router, Stack, Scene } from "react-native-router-flux";
 
 export default class App extends Component<{}> {
   
@@ -43,8 +44,6 @@ export default class App extends Component<{}> {
   
   async componentDidMount() {
     console.log("componentDidMount");
-    await this.getName();
-    await this.getData();
   }
   
   componentWillUpdate() {
@@ -52,44 +51,15 @@ export default class App extends Component<{}> {
     
   }
   
-  getData = async() => {
-    let response = await fetch(`https://ffccec3f.ngrok.io/users/1`);
-    console.log(response);
-    const data = await response.json();
-    console.log("json", data);
-    this.setState({
-      name: data.name,
-    });
-    await this.setItem(data.name);
-  }
-  
-  setItem = async(str) => {
-    try {
-      console.log(str);
-      await AsyncStorage.setItem('name', str);
-    }catch(e) {
-      console.log(e);
-    }
-  }
-  
-  getName = async() => {
-    try {
-      const name = await AsyncStorage.getItem('name');
-      console.log(name);
-      if (name !== null) {
-        this.setState({ name }); 
-      }
-    }catch(e) {
-      console.log(e);
-    }
-  }
-  
   render() {
     console.log("render");
     return (
-      <View style={{ flex: 1 }}>
-        <List />
-      </View>
+      <Router>
+        <Stack key="root">
+          <Scene key="button" component={ButtonSample} title="按鈕"/>
+          <Scene key="list" component={List} title="List"/>
+        </Stack>
+      </Router>
     );
   }
 }

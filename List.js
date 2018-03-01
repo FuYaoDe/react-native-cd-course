@@ -18,7 +18,7 @@ import {
   TextInput
 } from 'react-native';
 
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Button from './Button';
 import ButtonSample from './ButtonSample';
 import Image from './Image';
@@ -40,6 +40,7 @@ export default class List extends Component<{}> {
       isRefreshing: false,
       text: '',
       data: [],
+      page: 1,
     };
   }
   
@@ -48,12 +49,15 @@ export default class List extends Component<{}> {
   }
   
   getData = async() => {
-    let response = await fetch(`https://ffccec3f.ngrok.io/users?_page=1&_limit=10`);
+    let response = await fetch(`http://rn.fuyaode.me/users?_page=${this.state.page}&_limit=10`);
     console.log(response);
     const data = await response.json();
     console.log("json", data);
+    // this.state.page += 1,
     this.setState({
-      data,
+      data: [...this.state.data, ...data],
+      page: this.state.page + 1,
+      isRefreshing: false,
     });
   }
   
@@ -72,7 +76,7 @@ export default class List extends Component<{}> {
     
     const filter = (list) => {
      if (this.state.text.length > 0) {
-       return list.filter((data) => data.title.indexOf(this.state.text) > -1);
+       return list.filter((data) => data.name.indexOf(this.state.text) > -1);
      } else {
        return list
      }
@@ -92,17 +96,20 @@ export default class List extends Component<{}> {
           }
          }
          onEndReachedThreshold={0.5}
-         //onEndReached={() => { Alert.alert('阿', '到底摟') }}
+         onEndReached={async() => {
+           await this.getData();
+         }}
          ListHeaderComponent={
-           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20 }}>
+           <View style={{ height: 50, paddingRight: 20, paddingLeft: 20, flexDirection: 'row' }}>
+             <Icon name={'search'} size={20} color={'black'} />
              <TextInput
-               onChangeText={(text) => { this.setState({ text: text.toUpperCase() }) }}
+               onChangeText={(text) => { this.setState({ text: text }) }}
                style={{  height: 40 }}
                underlineColorAndroid={'transparent'}
                value={this.state.text}
-              keyboardType={'numeric'}
+              //keyboardType={'numeric'}
               returnKeyType={'search'}
-              secureTextEntry
+              // secureTextEntry
               defaultValue={1231212}
              />
            </View>
@@ -123,14 +130,15 @@ export default class List extends Component<{}> {
          refreshControl={
            <RefreshControl
              refreshing={this.state.isRefreshing}
-             onRefresh={() => {
-               this.setState({ isRefreshing: true });
-               setTimeout(
-                 () => {
-                   this.setState({ isRefreshing: false });
-                 }, 
-                 1000
-               );
+             onRefresh={async () => {
+               this.setState({
+                isRefreshing: true,
+                data: [],
+                page: 1,
+               }, async() => {
+                 await this.getData();
+               });
+               //await this.getData();
              }}
            />
          }

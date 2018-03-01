@@ -11,11 +11,14 @@ import {
   TouchableWithoutFeedback,
   Text
 } from 'react-native';
+import { Actions } from "react-native-router-flux";
+
 
 export default class ButtonSample extends Component {
   
   onPress = () => {
-    Alert.alert("啊!", "你按到我了！");
+    //Alert.alert("啊!", "你按到我了！");
+    Actions.button({ title: '自訂 Title'  });
   }
 
   render() {
@@ -41,8 +44,10 @@ export default class ButtonSample extends Component {
           color="#841584"
         />
         
-        <TouchableOpacity {...buttonProps}>
-          <Text style={styles.buttonText}>TouchableOpacity</Text>
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.pop();
+        }}>
+          <Text style={styles.buttonText}>返回</Text>
         </TouchableOpacity>
         
         <TouchableHighlight {...buttonProps}>
