@@ -38,7 +38,7 @@ export default class ButtonSample extends Component {
       <View style={styles.container}>
       
         <TouchableOpacity {...buttonProps} onPress={() => {
-          Actions.button({ title: '自訂 Title'  });
+          Actions.button({ title: '自訂 Title' });
         }}>
           <Text style={styles.buttonText}>切換到新的 Button 頁面</Text>
         </TouchableOpacity>
@@ -50,10 +50,11 @@ export default class ButtonSample extends Component {
         </TouchableOpacity>
         
         <TouchableOpacity {...buttonProps} onPress={() => {
-          Actions.refresh({ title: '更新' });
+          Actions.list();
         }}>
-          <Text style={styles.buttonText}>Actions</Text>
+          <Text style={styles.buttonText}>List</Text>
         </TouchableOpacity>
+        
         
         <TouchableOpacity {...buttonProps} onPress={() => {
           Actions.pop();
@@ -61,6 +62,23 @@ export default class ButtonSample extends Component {
           <Text style={styles.buttonText}>返回</Text>
         </TouchableOpacity>
         
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.pop({
+            refresh: {
+              title: '新的 Title'
+            }
+          });
+        }}>
+          <Text style={styles.buttonText}>返回更新 title</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.list({
+            search: 'c'
+          });
+        }}>
+          <Text style={styles.buttonText}>帶入預設搜尋 List</Text>
+        </TouchableOpacity>
       </View>
     );
   }

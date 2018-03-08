@@ -17,6 +17,7 @@ import {
   RefreshControl,
   TextInput,
   AsyncStorage,
+  BackAndroid,
 } from 'react-native';
 
 
@@ -24,11 +25,16 @@ import Button from './Button';
 import ButtonSample from './ButtonSample';
 import Image from './Image';
 import ListItem from './ListItem';
+import Detail from './Detail';
+import Update from './Update';
 import List from './List';
-import { Router, Stack, Scene } from "react-native-router-flux";
+import { Router, Stack, Scene, Tabs, Drawer, Modal } from "react-native-router-flux";
 import CustomNavBar from './CustomNavBar';
 // import CustomNavBar from './AnsCustomNavBar';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
+import TabIcon from './TabIcon';
+import DrawerContent from './DrawerContent';
+import Chatroom from './Chatroom';
 
 export default class App extends Component<{}> {
   
@@ -57,10 +63,12 @@ export default class App extends Component<{}> {
   render() {
     console.log("render");
     return (
-      <Router uriPrefix={'test'} navBar={CustomNavBar}>
+      <Router>
         <Stack key="root">
-          <Scene key="button" path={"/button/:string"} component={ButtonSample} title="按鈕"/>
-          <Scene key="list" path={"/list/:search"} component={List} title="List"/>
+          <Scene key="button" component={ButtonSample} title="按鈕"/>
+          <Scene key="list" component={List} title="List"/>
+          <Scene key="detail" component={Detail} rightTitle="編輯"/>
+          <Scene key="update" component={Update} />
         </Stack>
       </Router>
     );
@@ -84,4 +92,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  tabBarStyle: {
+    backgroundColor: "#eee"
+  }
 });

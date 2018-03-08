@@ -16,10 +16,6 @@ const styles = StyleSheet.create({
 
 export default class CustomNavBar extends React.Component {
 
-  // constructor(props) {
-  //   super(props)
-  // }
-
   _renderLeft() {
       if (this.props.scene.index > 0) {
           return (

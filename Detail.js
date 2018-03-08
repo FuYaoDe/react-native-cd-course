@@ -18,22 +18,22 @@ export default class ListItem extends Component {
   constructor(props) {
     super(props);
   }
+  
+  componentWillMount() {
+    Actions.refresh({
+      onRight: () => {
+        Actions.update({
+          title: this.props.title,
+          desc: this.props.desc,
+          image: this.props.image,
+        })
+      }
+    })
+  }
 
   render() {
     return (
-      <TouchableOpacity
-        style={{ flexDirection: 'row', padding: 10, backgroundColor: '#eee' }}
-        onPress={() => {
-          Actions.detail({
-            title: this.props.title,
-            desc: this.props.desc,
-            image: this.props.image,
-          })
-        }}
-      >
-       
-       
-       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, padding: 10, backgroundColor: '#eee', justifyContent: 'center', alignItems: 'center' }}>
         <Image
           style={{
             height: 80,
@@ -44,23 +44,13 @@ export default class ListItem extends Component {
           }}
           source={{ uri: this.props.image }}
         />
-       </View>
-       
-       <View style={{
-          flex: 3,
-          justifyContent: 'center',
-          marginLeft: 20,
-          backgroundColor:'#eee'
-       }}
-       >
-          <Text style={{ fontSize: 20, fontWeight: '500'  }}>
-            {this.props.title}
-          </Text>
-          <Text>
-            {this.props.desc}
-          </Text>
-       </View>
-      </TouchableOpacity>
+        <Text style={{ fontSize: 20, fontWeight: '500'  }}>
+          {this.props.title}
+        </Text>
+        <Text>
+          {this.props.desc}
+        </Text>
+      </View>
     );
   }
 }
