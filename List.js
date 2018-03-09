@@ -18,7 +18,6 @@ import {
   TextInput
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Button from './Button';
 import ButtonSample from './ButtonSample';
 import Image from './Image';
@@ -108,7 +107,6 @@ export default class List extends Component<{}> {
          }}
          ListHeaderComponent={
            <View style={{ height: 50, paddingRight: 20, paddingLeft: 20, flexDirection: 'row' }}>
-             <Icon name={'search'} size={20} color={'black'} />
              <TextInput
                onChangeText={(text) => { this.setState({ text: text }) }}
                style={{  height: 40 }}

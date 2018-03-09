@@ -31,6 +31,24 @@ export default class ListItem extends Component {
     })
   }
 
+  async componentDidMount() {
+    if (this.props.id) {
+      await this.getData();
+    }
+  }
+  
+  getData = async() => {
+    let response = await fetch(`http://rn.fuyaode.me/users/${this.props.id}`);
+    console.log(response);
+    const data = await response.json();
+    console.log("json", data);
+    Actions.refresh({
+      title: data.name,
+      desc: data.job_title,
+      image: data.avatar,
+    });
+  }
+
   render() {
     return (
       <View style={{ flex: 1, padding: 10, backgroundColor: '#eee', justifyContent: 'center', alignItems: 'center' }}>

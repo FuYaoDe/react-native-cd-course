@@ -35,6 +35,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import TabIcon from './TabIcon';
 import DrawerContent from './DrawerContent';
 import Chatroom from './Chatroom';
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
 export default class App extends Component<{}> {
   
@@ -63,11 +64,14 @@ export default class App extends Component<{}> {
   render() {
     console.log("render");
     return (
-      <Router>
-        <Stack key="root">
+      <Router uriPrefix={'test'}>
+        <Stack
+          key="root"
+          transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forHorizontal })}
+        >
           <Scene key="button" component={ButtonSample} title="按鈕"/>
-          <Scene key="list" component={List} title="List"/>
-          <Scene key="detail" component={Detail} rightTitle="編輯"/>
+          <Scene key="list" path={"/list/:search"} component={List} title="List"/>
+          <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
           <Scene key="update" component={Update} />
         </Stack>
       </Router>

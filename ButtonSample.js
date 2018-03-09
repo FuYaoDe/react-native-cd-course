@@ -65,7 +65,7 @@ export default class ButtonSample extends Component {
         <TouchableOpacity {...buttonProps} onPress={() => {
           Actions.pop({
             refresh: {
-              title: '新的 Title'
+              title: '新的 Title!'
             }
           });
         }}>
