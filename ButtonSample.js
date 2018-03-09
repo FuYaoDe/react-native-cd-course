@@ -79,6 +79,11 @@ export default class ButtonSample extends Component {
         }}>
           <Text style={styles.buttonText}>帶入預設搜尋 List</Text>
         </TouchableOpacity>
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.modal();
+        }}>
+          <Text style={styles.buttonText}>Modal</Text>
+        </TouchableOpacity>
       </View>
     );
   }

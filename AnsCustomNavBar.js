@@ -25,10 +25,7 @@ export default class CustomNavBar extends React.Component {
             <TouchableOpacity
               onPress={Actions.pop}
               style={[styles.navBarItem, { paddingLeft: 10}]}>
-              <Image
-                style={{width: 30, height: 50}}
-                resizeMode="contain"
-                source={{uri: 'https://image.flaticon.com/icons/png/512/0/340.png'}}></Image>
+              <Text style={{ paddingRight: 40 }} >返回</Text>
             </TouchableOpacity>
           )
       } else {

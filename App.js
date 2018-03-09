@@ -28,14 +28,15 @@ import ListItem from './ListItem';
 import Detail from './Detail';
 import Update from './Update';
 import List from './List';
-import { Router, Stack, Scene, Tabs, Drawer, Modal } from "react-native-router-flux";
-import CustomNavBar from './CustomNavBar';
-// import CustomNavBar from './AnsCustomNavBar';
+import { Router, Stack, Scene, Tabs, Drawer, Modal, Lightbox } from "react-native-router-flux";
+//import CustomNavBar from './CustomNavBar';
+ import CustomNavBar from './AnsCustomNavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TabIcon from './TabIcon';
 import DrawerContent from './DrawerContent';
 import Chatroom from './Chatroom';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import ErrorBox from './ErrorBox';
 
 export default class App extends Component<{}> {
   
@@ -64,16 +65,44 @@ export default class App extends Component<{}> {
   render() {
     console.log("render");
     return (
-      <Router uriPrefix={'test'}>
-        <Stack
-          key="root"
-          transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forHorizontal })}
-        >
-          <Scene key="button" component={ButtonSample} title="按鈕"/>
-          <Scene key="list" path={"/list/:search"} component={List} title="List"/>
-          <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
-          <Scene key="update" component={Update} />
-        </Stack>
+      <Router uriPrefix={'test'} navBar={CustomNavBar}>
+        <Lightbox>
+          <Stack
+            key="root"
+            transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forHorizontal })}
+          >
+            <Tabs
+              tabBarStyle={{ backgroundColor: "#eee" }}
+              activeBackgroundColor="white"
+              inactiveBackgroundColor="#BBB"
+              tabBarPosition={'bottom'}
+            >
+              <Scene
+                title="按鈕"
+                key="button2"
+                hideNavBar
+                component={ButtonSample}
+                icon={() => {
+                  return <Icon name={'rocket'} size={20} color={'#ccc'} />
+                }}
+              />
+              <Scene
+                title="清單"
+                key="tabList2"
+                component={List}
+                hideNavBar
+                icon={() => {
+                  return <Icon name={'search'} size={20} color={'#ccc'} />
+                }}
+              />
+            </Tabs>
+            <Scene key="button" component={ButtonSample} title="按鈕"/>
+            <Scene key="list" path={"/list/:search"} component={List} title="List"/>
+            <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
+            <Scene key="update" component={Update} />
+          </Stack>
+          <Scene key="modal" component={ErrorBox} />
+        </Lightbox>
       </Router>
     );
   }
