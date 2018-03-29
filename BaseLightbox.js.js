@@ -17,23 +17,25 @@ export default class BaseLightbox extends Component {
     super(props);
 
     this.state = {
-      opacity: new Animated.Value(0),
+      opacity: new Animated.Value(1),
     };
   }
 
-  componentDidMount() {
-    Animated.timing(this.state.opacity, {
-      duration: 100,
-      toValue: 1,
-    }).start();
-  }
+  // componentDidMount() {
+  //   Animated.spring(this.state.opacity, {
+  //     duration: 125,
+  //     toValue: 1,
+  //   }).start();
+  // }
 
-  closeModal = () => {
-    Animated.timing(this.state.opacity, {
-      duration: 100,
-      toValue: 0,
-    }).start(Actions.pop);
-  }
+  // closeModal = () => {
+  //   Animated.spring(this.state.opacity, {
+  //     duration: 125,
+  //     toValue: 0,
+  //   }).start(() => {
+  //     Actions.pop();
+  //   });
+  // }
 
   _renderLightBox = () => {
     const { children, horizontalPercent = 1, verticalPercent = 1 } = this.props;
@@ -47,11 +49,11 @@ export default class BaseLightbox extends Component {
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: 'white',
-          paddingBottom: 30,
+          //paddingBottom: 30,
         }}
       >
         {children}
-        <Button title="Close" onPress={this.closeModal}  />
+        {/*<Button title="Close" onPress={this.closeModal}  />*/}
       </View>
     );
   }

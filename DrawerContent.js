@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
     flex: 1,
     justifyContent: 'center',
-    paddingLeft: 15
+    paddingLeft: 15,
   },
 });
 
@@ -17,11 +17,17 @@ class DrawerContent extends React.Component {
   render() {
       return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={Actions.button}>
+              <Text>按鈕</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={Actions.list}>
               <Text>清單</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={Actions.button}>
-              <Text>按鈕</Text>
+            <TouchableOpacity onPress={Actions.chatroom}>
+              <Text>聊天室</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={Actions.animated}>
+              <Text>動畫</Text>
             </TouchableOpacity>
         </View >
       );

@@ -38,21 +38,33 @@ export default class ButtonSample extends Component {
       <View style={styles.container}>
       
         <TouchableOpacity {...buttonProps} onPress={() => {
-          Actions.button({ title: '自訂 Title' });
-        }}>
-          <Text style={styles.buttonText}>切換到新的 Button 頁面</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity {...buttonProps} onPress={() => {
           Actions.refresh({ title: '標題' });
         }}>
           <Text style={styles.buttonText}>刷新當前 props</Text>
         </TouchableOpacity>
         
         <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.drawerOpen();
+        }}>
+          <Text style={styles.buttonText}>開啟側滑選單</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.modal();
+        }}>
+          <Text style={styles.buttonText}>Modal</Text>
+        </TouchableOpacity>
+        
+        {/*<TouchableOpacity {...buttonProps} onPress={() => {
           Actions.list();
         }}>
           <Text style={styles.buttonText}>List</Text>
+        </TouchableOpacity>
+      
+        <TouchableOpacity {...buttonProps} onPress={() => {
+          Actions.button({ title: '自訂 Title' });
+        }}>
+          <Text style={styles.buttonText}>切換到新的 Button 頁面</Text>
         </TouchableOpacity>
         
         
@@ -79,11 +91,7 @@ export default class ButtonSample extends Component {
         }}>
           <Text style={styles.buttonText}>帶入預設搜尋 List</Text>
         </TouchableOpacity>
-        <TouchableOpacity {...buttonProps} onPress={() => {
-          Actions.modal();
-        }}>
-          <Text style={styles.buttonText}>Modal</Text>
-        </TouchableOpacity>
+        */}
       </View>
     );
   }

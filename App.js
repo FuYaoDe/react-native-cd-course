@@ -34,10 +34,18 @@ import { Router, Stack, Scene, Tabs, Drawer, Modal, Lightbox } from "react-nativ
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TabIcon from './TabIcon';
 import DrawerContent from './DrawerContent';
-import Chatroom from './Chatroom';
+// import Chatroom from './Chatroom';
+import Chatroom from './Chatroom.sample';
+import Animated from './Animated';
+import AnimateList from './AnimateList';
+import AnimateDetail from './AnimateDetail';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import ErrorBox from './ErrorBox';
+
+
 console.disableYellowBox = true;
+
+
 export default class App extends Component<{}> {
   
   
@@ -66,7 +74,7 @@ export default class App extends Component<{}> {
     console.log("render");
     return (
       <Router uriPrefix={'test'} >
-        <Lightbox hideNavBar>
+        {/* <Lightbox hideNavBar>
           <Stack
             key="root"
             transitionConfig={() => ({ screenInterpolator: CardStackStyleInterpolator.forHorizontal })}
@@ -76,6 +84,37 @@ export default class App extends Component<{}> {
             <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
             <Scene key="update" component={Update} />
           </Stack>
+          <Scene key="modal" component={ErrorBox} />
+        </Lightbox>
+        */}
+        <Lightbox key="root">
+          <Stack>
+          
+            <Drawer
+              key="drawer"
+              contentComponent={DrawerContent}
+              drawerWidth={300}
+              hideNavBar
+              drawerIcon={() => {
+                return <Icon name={'bars'} size={20} color={'#ccc'} />
+                // return <View style={{ padding: 5 }}><Text>1234</Text></View>
+              }}
+            >
+              <Scene key="button" component={ButtonSample} title="按鈕"/>
+              
+              <Scene key="chatroom" component={Chatroom} title="聊天室" />
+              <Scene key="animated" component={Animated} title="動畫" />
+              <Scene key="AnimateList" initial={true} component={AnimateList} hideNavBar />
+              <Stack>
+                <Scene key="list" path={"/list/:search"} component={List} title="List" />
+                <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
+                <Scene key="update" component={Update} />
+              </Stack>
+              
+            </Drawer>
+            
+          </Stack>
+          <Scene key="animateDetail" component={AnimateDetail} />
           <Scene key="modal" component={ErrorBox} />
         </Lightbox>
       </Router>
