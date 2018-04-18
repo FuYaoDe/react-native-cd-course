@@ -14,13 +14,17 @@ export default class AnimateTransition extends Component {
   }
   
   show = () => {
+    console.log('show');
     this.fadeAnim = new Animated.Value(0);
     Animated.timing(this.fadeAnim, {
       toValue: 1,
       duration: 250,
-    }).start(() => {
-      Actions.animateDetail({ image: this.props.image });
-    });
+    }).start(
+      
+      () => {
+        Actions.animateDetail({ image: this.props.image });
+      }
+    );
     
     setTimeout(() => {
       Animated.timing(this.fadeAnim, {
@@ -38,7 +42,7 @@ export default class AnimateTransition extends Component {
   }
   
   render() {
-
+    console.log(this.props.x);
     const opacity = this.fadeAnim.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1],
@@ -48,10 +52,10 @@ export default class AnimateTransition extends Component {
       inputRange: [0, 1],
       outputRange: [0, -this.props.x],
     });
-
-    const moveTopY = this.fadeAnim.interpolate({
+    
+     const moveTopY = this.fadeAnim.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, this.props.scrollViewPosition - this.props.y],
+      outputRange: [0, this.props.scrollViewPosition - this.props.y ],
     });
 
     const width = this.fadeAnim.interpolate({
@@ -69,8 +73,6 @@ export default class AnimateTransition extends Component {
       <Animated.Image
         style={{
           opacity,
-          // zIndex: 100,
-          // backgroundColor: 'red',
           position: 'absolute',
           left: this.props.x,
           top: this.props.y,

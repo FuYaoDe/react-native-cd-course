@@ -29,6 +29,12 @@ class DrawerContent extends React.Component {
             <TouchableOpacity onPress={Actions.animated}>
               <Text>動畫</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={Actions.animateList}>
+              <Text>動畫轉場</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={Actions.layoutAnimation}>
+              <Text>LayoutAnimation</Text>
+            </TouchableOpacity>
         </View >
       );
   }

@@ -39,6 +39,7 @@ import Chatroom from './Chatroom.sample';
 import Animated from './Animated';
 import AnimateList from './AnimateList';
 import AnimateDetail from './AnimateDetail';
+import LayoutAnimation from './LayoutAnimation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import ErrorBox from './ErrorBox';
 
@@ -104,7 +105,8 @@ export default class App extends Component<{}> {
               
               <Scene key="chatroom" component={Chatroom} title="聊天室" />
               <Scene key="animated" component={Animated} title="動畫" />
-              <Scene key="AnimateList" initial={true} component={AnimateList} hideNavBar />
+              <Scene key="layoutAnimation" component={LayoutAnimation} title="動畫" />
+              <Scene key="animateList" initial={true}  component={AnimateList} hideNavBar />
               <Stack>
                 <Scene key="list" path={"/list/:search"} component={List} title="List" />
                 <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
@@ -114,7 +116,9 @@ export default class App extends Component<{}> {
             </Drawer>
             
           </Stack>
+          
           <Scene key="animateDetail" component={AnimateDetail} />
+          
           <Scene key="modal" component={ErrorBox} />
         </Lightbox>
       </Router>

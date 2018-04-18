@@ -22,30 +22,49 @@ export default class Hello extends Component {
 
   getImagePosition = (image, w, uri) => {
     if (image) {
+      
+      
       image.getNode().measure((soruceX, soruceY, width, height, pageX, pageY) => {
+        
         console.log({ width, height, pageX, pageY });
+        
         this.setState({
+          
           tW: w,
           tH: height,
+          
           tX: pageX,
           tY: this.scrollViewPosition + pageY,
+          
           tUri: uri,
+          
+          
           scrollViewPosition: this.scrollViewPosition,
+          
         });
+        
       });
+      
+      
     }
   }
 
   renderImage = () => {
     return template.map((w, i) => {
+      
+      
       const imageId = 900 + i;
       const uri = `https://picsum.photos/256/144/?image=${imageId}`;
+      
       Image.prefetch(uri);
+      
+      
       return (
         <TouchableOpacity
           key={i}
           style={{ width: w, height: 200, padding: 2 }}
           onPress={() => {
+
             this.getImagePosition(this.image[i], w, uri );
 
           }}
@@ -58,13 +77,17 @@ export default class Hello extends Component {
             source={{ uri }}
             resizeMode={'cover'}
           />
+          
         </TouchableOpacity>
       )
+      
     })
   }
 
   render() {
+    
     const { tW, tH, tX, tY, tV, tUri, scrollViewPosition } = this.state;
+    
     return (
       <ScrollView
         scrollEventThrottle={16}
@@ -80,14 +103,22 @@ export default class Hello extends Component {
           }}
         >
           {this.renderImage()}
+          
+          
           <AnimateTransition
+          
             width={tW}
+            
             height={tH}
             x={tX}
             y={tY}
-            scrollViewPosition={scrollViewPosition}
             image={tUri}
+            
+            scrollViewPosition={scrollViewPosition}
+            
           />
+          
+          
         </View>
       </ScrollView>
     );
