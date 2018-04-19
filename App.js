@@ -42,12 +42,13 @@ import AnimateDetail from './AnimateDetail';
 import LayoutAnimation from './LayoutAnimation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import ErrorBox from './ErrorBox';
+import codePush from "react-native-code-push";
 
 
 console.disableYellowBox = true;
 
 
-export default class App extends Component<{}> {
+class App extends Component<{}> {
   
   
   constructor(props) {
@@ -106,7 +107,7 @@ export default class App extends Component<{}> {
               <Scene key="chatroom" component={Chatroom} title="聊天室" />
               <Scene key="animated" component={Animated} title="動畫" />
               <Scene key="layoutAnimation" component={LayoutAnimation} title="動畫" />
-              <Scene key="animateList" initial={true}  component={AnimateList} hideNavBar />
+              <Scene key="animateList" initial={false}  component={AnimateList} hideNavBar />
               <Stack>
                 <Scene key="list" path={"/list/:search"} component={List} title="List" />
                 <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
@@ -147,3 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee"
   }
 });
+
+App = codePush({ installMode: codePush.InstallMode.IMMEDIATE })(App)
+// App = codePush(App);
+export default App;
