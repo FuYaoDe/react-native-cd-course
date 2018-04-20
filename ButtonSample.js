@@ -40,7 +40,7 @@ export default class ButtonSample extends Component {
         <TouchableOpacity {...buttonProps} onPress={() => {
           Actions.refresh({ title: '標題' });
         }}>
-          <Text style={styles.buttonText}>刷新當前 props</Text>
+          <Text style={styles.buttonText}>刷新當前 props!!!!!!!!!</Text>
         </TouchableOpacity>
         
         <TouchableOpacity {...buttonProps} onPress={() => {
