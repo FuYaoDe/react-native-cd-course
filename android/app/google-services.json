@@ -1,0 +1,104 @@
+{
+  "project_info": {
+    "project_number": "748216725901",
+    "firebase_url": "https://test-bbed6.firebaseio.com",
+    "project_id": "test-bbed6",
+    "storage_bucket": "test-bbed6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748216725901:android:1a2e2547c8d06311",
+        "android_client_info": {
+          "package_name": "com.gecenter.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748216725901-fs2khlbbpf3v2ufjgkrqu9ac76f0rbh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI3fp_xEaiGqYgzpGEAlFsCfRNGqPYICc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748216725901:android:09f9b62389688efe",
+        "android_client_info": {
+          "package_name": "com.kbro.healthcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748216725901-fs2khlbbpf3v2ufjgkrqu9ac76f0rbh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI3fp_xEaiGqYgzpGEAlFsCfRNGqPYICc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748216725901:android:c045701534b0f96a",
+        "android_client_info": {
+          "package_name": "com.test2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748216725901-fs2khlbbpf3v2ufjgkrqu9ac76f0rbh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI3fp_xEaiGqYgzpGEAlFsCfRNGqPYICc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,7 +28,7 @@ import ListItem from './ListItem';
 import Detail from './Detail';
 import Update from './Update';
 import List from './List';
-import { Router, Stack, Scene, Tabs, Drawer, Modal, Lightbox } from "react-native-router-flux";
+import { Actions, Router, Stack, Scene, Tabs, Drawer, Modal, Lightbox } from "react-native-router-flux";
 //import CustomNavBar from './CustomNavBar';
  import CustomNavBar from './AnsCustomNavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -43,6 +43,8 @@ import LayoutAnimation from './LayoutAnimation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import ErrorBox from './ErrorBox';
 import codePush from "react-native-code-push";
+import FCM, {NotificationActionType} from "react-native-fcm";
+
 
 
 console.disableYellowBox = true;
@@ -65,6 +67,18 @@ class App extends Component<{}> {
   
   async componentDidMount() {
     console.log("componentDidMount");
+    FCM.getInitialNotification().then(notif => {
+      console.log("TOKEN (getFCMToken)", notif);
+      if (notif.userId) {
+        Actions.detail({
+          id: notif.userId
+        })
+      }
+    });
+    FCM.getFCMToken().then(token => {
+      console.log("TOKEN (getFCMToken)", token);
+      this.setState({token: token || ""})
+    });
   }
   
   componentWillUpdate() {
@@ -108,7 +122,7 @@ class App extends Component<{}> {
               <Scene key="animated" component={Animated} title="動畫" />
               <Scene key="layoutAnimation" component={LayoutAnimation} title="動畫" />
               <Scene key="animateList" initial={false}  component={AnimateList} hideNavBar />
-              <Stack>
+              <Stack key="userList">
                 <Scene key="list" path={"/list/:search"} component={List} title="List" />
                 <Scene key="detail" path={"/user/:id"} component={Detail} rightTitle="編輯"/>
                 <Scene key="update" component={Update} />
